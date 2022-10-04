@@ -18,18 +18,24 @@ public class cookieClicker extends PApplet {
 // Cookie Clicker In Processing
 PImage cookie;
 int cookies = 0;
+
+// Setup Method
  public void setup() {
   /* size commented out by preprocessor */;
   background(0);
   fill(255);
   textSize(20);
   cookie = loadImage("cookie.png");
+  text("You have " + cookies + " cookies!", 10, 30);
 }
+
+// Draw Method
  public void draw() {
   // Draw the cookie
   image(cookie, 100, 100, 200, 200);
-  text("You have " + cookies + " cookies!", 10, 30);
 }
+
+// Mouse Pressed Method
  public void mousePressed() {
   if (mouseX > 100 && mouseX < 300 && mouseY > 100 && mouseY < 300) {
     cookies++;

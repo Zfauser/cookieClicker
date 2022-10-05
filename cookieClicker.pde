@@ -1,6 +1,7 @@
-// Zach Fauser
-// Assignment 3 - Processing (Cookie Clicker)
-// September 27, 2022
+// Name: Zach Fauser
+// Assignment: Assignment 3 - Processing (Cookie Clicker)
+// Purpose: To create a cookie clicker game using Processing
+// Start Date: September 27, 2022
 
 PImage cookie;
 PImage grannyColor;
@@ -13,8 +14,11 @@ int cookieX = 100;
 int cookieY = 100;
 int cookieW = 200;
 int cookieH = 200;
-int cookiesNeeded = 10;
+int cookiesNeededGranny = 10;
+int cookiesNeededCursor = 10;
 int clicksPerSecond = 0;
+int cookiesPerClick = 1;
+
 
 // Setup Method
 void setup() {
@@ -46,23 +50,33 @@ void mousePressed() {
 		cookieY = cookieY - 5;
 		cookieH = cookieH + 10;
 		cookieW = cookieW + 10;
-    cookies++; // increment cookies variable by 1
+    cookies += cookiesPerClick; // add cookiesPerClick to cookies
     cookies = cookies + clicksPerSecond * 1/60; // calculate cookies per second
   }
   else if (mouseX > 0 && mouseX < 300 && mouseY > 0 && mouseY < 400) { // if mouse is pressed within the granny
-    if (cookies >= cookiesNeeded) { // if cookies is greater than or equal to cookiesNeeded
+    if (cookies >= cookiesNeededGranny) { // if cookies is greater than or equal to cookiesNeededGranny
       clicksPerSecond++; // increment clicksPerSecond by 1
-      cookies = cookies - cookiesNeeded; // subtract cookiesNeeded from cookies
-      cookiesNeeded = cookiesNeeded + 10; // multiply cookiesNeeded by 2
+      cookies = cookies - cookiesNeededGranny; // subtract cookiesNeededGranny from cookies
+      cookiesNeededGranny = cookiesNeededGranny + 10; // multiply cookiesNeededGranny by 2
       fill(0); // set fill color to black
       rect(100, 300, 200, 100); // draw rectangle to cover previous granny
       image(grannyBW, 0, 300, 100, 100); // draw black and white granny
       fill(255); // set fill color to white
-      println(clicksPerSecond); // print clicksPerSecond to console
+    }
+  }
+  else if (mouseX > 300 && mouseX < 400 && mouseY > 0 && mouseY < 400) { // if mouse is pressed within the cursor
+    if (cookies >= cookiesNeededCursor) { // if cookies is greater than or equal to cookiesNeededCursor
+      cookiesPerClick++; // increment cookiesPerClick by 1
+      cookies = cookies - cookiesNeededCursor; // subtract cookiesNeededCursor from cookies
+      cookiesNeededCursor = cookiesNeededCursor + 10; // multiply cookiesNeededCursor by 2
+      fill(0); // set fill color to black
+      rect(300, 300, 100, 100); // draw rectangle to cover previous cursor
+      image(cursorBW, 300, 300, 100, 100); // draw black and white cursor
+      fill(255); // set fill color to white
     }
   }
 }
-//Cookie gets larger when you click it.
+// Cookie gets larger when you click it.
 void mouseReleased() {
 	if(mouseX > cookieX && mouseX < cookieX + cookieW && mouseY > cookieY && mouseY < cookieY + cookieH) {
 		cookieX = cookieX + 5;
@@ -75,31 +89,53 @@ void mouseReleased() {
 void drawAssets() {
   // draw rectangle to cover previous text
   fill(0);
-  rect(0, 0, 400, 30);
-  // draw text
+  rect(0, 5, 400, 30);
   fill(255);
-  text("You have " + (round((cookies * 10.0)) / 10.0) + " cookies!", 10, 30);
+  text("You have " + (round((cookies * 10.0)) / 10.0) + " cookie(s)!", 10, 30);
   // underneath this line, draw the cps text
   fill(0);
-  rect(0, 30, 400, 30);
+  rect(0, 35, 400, 30);
   fill(255);
-  text("You have " + clicksPerSecond + " cps!", 10, 60);
-  // draw the cookie
+  text("You have " + clicksPerSecond + " click(s) per second!", 10, 60);
+  // draw rectangle to cover previous text
+  fill(0);
+  rect(0, 70, 400, 40);
+  fill(255);
+  // draw text
+  text("You get " + cookiesPerClick + " cookie(s) per click!", 10, 90);
   // draw rectangle to cover previous cookie
   fill(0);
   rect(cookieX, cookieY, cookieW, cookieH);
+  // draw the cookie
 	noStroke();
 	image(cookie, cookieX, cookieY, cookieW, cookieH);
   // draw rectangle to cover previous granny
   fill(0);
   rect(0, 300, 400, 100);
   // draw granny
-  if (cookies >= cookiesNeeded) { // if cookies is greater than or equal to 10
+  if (cookies >= cookiesNeededGranny) { // if cookies is greater than or equal to cookiesNeeded
     image(grannyColor, 0, 300, 100, 100); // draw color granny
   } else { // otherwise
     image(grannyBW, 0, 300, 100, 100); // draw black and white granny
   }
+  // draw rectangle to cover previous text
+  fill(0);
+  rect(10, 280, 120, 20);
   // draw text beside granny to show how many cookies are needed
   fill(255);
-  text(cookiesNeeded + " cookies", 10, 295);
+  text("Cost: " + cookiesNeededGranny, 7, 295);
+  // draw rectangle to cover previous cursor
+  fill(0);
+  rect(300, 300, 100, 100);
+  if (cookies >= cookiesNeededCursor) { // if cookies is greater than or equal to cookiesNeeded
+    image(cursorColor, 300, 300, 100, 100); // draw color cursor
+  } else { // otherwise
+    image(cursorBW, 300, 300, 100, 100); // draw black and white cursor
+  }
+  // draw rectangle to cover previous text
+  fill(0);
+  rect(280, 280, 120, 20);
+  // draw text beside cursor to show how many cookies are needed
+  fill(255);
+  text("Cost: " + cookiesNeededCursor, 300, 295); // display cookiesNeeded
 }

@@ -48,10 +48,10 @@ void draw() {
 // Mouse Pressed Method
 void mousePressed() {
   if (mouseX > 100 && mouseX < 300 && mouseY > 100 && mouseY < 300) { // if mouse is pressed within the cookie
-    cookieX = cookieX - 5;
-		cookieY = cookieY - 5;
-		cookieH = cookieH + 10;
-		cookieW = cookieW + 10;
+    cookieX = cookieX - 5; // move cookie x position left
+		cookieY = cookieY - 5; // move cookie y position up
+		cookieH = cookieH + 10; // make cookie higher by 10
+		cookieW = cookieW + 10; // make cookie wider by 10
     cookies += cookiesPerClick; // add cookiesPerClick to cookies
     cookies = cookies + clicksPerSecond * 1/60; // calculate cookies per second
   }

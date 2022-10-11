@@ -108,10 +108,10 @@ void keyPressed() {
 // Cookie gets larger when you click it.
 void mouseReleased() {
 	if(mouseX > cookieX && mouseX < cookieX + cookieW && mouseY > cookieY && mouseY < cookieY + cookieH) {
-		cookieX = cookieX + 5;
-		cookieY = cookieY + 5;
-		cookieH = cookieH - 10;
-		cookieW = cookieW - 10;
+		cookieX = cookieX + 5; // move cookie x position right
+		cookieY = cookieY + 5; // move cookie y position down
+		cookieH = cookieH - 10; // make cookie shorter by 10
+		cookieW = cookieW - 10; // make cookie narrower by 10
 	}
 }
 
